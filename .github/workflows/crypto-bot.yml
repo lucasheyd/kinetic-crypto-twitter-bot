@@ -34,7 +34,7 @@ jobs:
       
       - name: Run market update
         if: github.event.schedule == '*/5 * * * *'
-        run: node api/cron/market-update.js
+        run: node scripts/run-cron.js market-update
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
@@ -42,10 +42,12 @@ jobs:
           TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           CRESTAL_API_KEY: ${{ secrets.CRESTAL_API_KEY }}
+          BOT_TWITTER_HANDLE: ${{ secrets.BOT_TWITTER_HANDLE }}
+          CRON_SECRET: github-actions
       
       - name: Run degen alert
         if: contains(github.event.schedule, '2,7,12,17,22,27,32,37,42,47,52,57')
-        run: node api/cron/degen-alert.js  
+        run: node scripts/run-cron.js degen-alert
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
@@ -53,3 +55,5 @@ jobs:
           TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           CRESTAL_API_KEY: ${{ secrets.CRESTAL_API_KEY }}
+          BOT_TWITTER_HANDLE: ${{ secrets.BOT_TWITTER_HANDLE }}
+          CRON_SECRET: github-actions
