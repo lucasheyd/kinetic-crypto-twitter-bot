@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "functions": {
+    "api/cron/*.js": {
+      "maxDuration": 60
+    },
+    "api/webhooks/*.js": {
+      "maxDuration": 30
+    },
+    "api/services/*.js": {
+      "maxDuration": 45
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/market-update",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/degen-alert",
+      "schedule": "30 */6 * * *"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
