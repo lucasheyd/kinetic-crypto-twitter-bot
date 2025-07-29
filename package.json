@@ -11,9 +11,9 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "twitter-api-v2": "^1.15.1",
-    "axios": "^1.6.2",
-    "dotenv": "^16.3.1"
+    "twitter-api-v2": "^1.24.0",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1"
   },
   "keywords": [
     "crypto",
