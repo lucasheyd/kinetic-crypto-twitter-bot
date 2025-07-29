@@ -2,9 +2,9 @@ name: Crypto Twitter Bot
 
 on:
   schedule:
-    # Market updates every 3 hours at :00 (00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00)
+    # Market updates every 3 hours at :00
     - cron: '0 */3 * * *'
-    # Degen alerts every 3 hours at :30 (00:30, 03:30, 06:30, 09:30, 12:30, 15:30, 18:30, 21:30)  
+    # Degen alerts every 3 hours at :30  
     - cron: '30 */3 * * *'
   workflow_dispatch: # Allows manual triggering
 
@@ -35,9 +35,11 @@ jobs:
           ls -la api/cron/ || echo "api/cron/ directory not found"
           echo "All files:"
           find . -name "*.js" | head -10
+          echo "GitHub event info:"
+          echo "Event name: ${{ github.event_name }}"
+          echo "Schedule: ${{ github.event.schedule }}"
       
       - name: Run market update
-        if: github.event.schedule == '0 */3 * * *'
         run: node scripts/run-cron.js market-update
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
@@ -50,7 +52,6 @@ jobs:
           CRON_SECRET: github-actions
       
       - name: Run degen alert
-        if: github.event.schedule == '30 */3 * * *'
         run: node scripts/run-cron.js degen-alert
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
